@@ -1,0 +1,17 @@
+body{
+  background: violet;
+  margin: 70px;
+  font-family: cursive;
+}
+
+.mypara{
+  color: blue;
+  font-family:fantasy;
+  font-size: 15px
+}
+
+.myheading{
+  color: green;
+  font-family:fantasy;
+  font-size: 30px
+}
