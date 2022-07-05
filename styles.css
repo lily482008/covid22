@@ -1,11 +1,29 @@
 body{
   background: violet;
-  margin: 70px;
-  font-family: cursive;
+  margin: 75px;
+  font-family: fantasy;
 }
 
 .mypara{
-  color: blue;
+  color: brown;
+  font-family:fantasy;
+  font-size: 20px
+}
+
+.myheading{
+  color: maroon;
+  font-family:fantasy;
+  font-size: 40px
+}
+
+.mypara2{
+  color: brown;
+  font-family:fantasy;
+  font-size: 20px
+}
+
+.mylist{
+  color: brown;
   font-family:fantasy;
   font-size: 15px
 }
