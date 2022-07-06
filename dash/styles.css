@@ -1,6 +1,24 @@
 .nav-wrapper{
-  background: teal;
+  background: #b71c1c;
 }
 .brand-logo{
   margin-left:25px;
+}
+
+.card-title{
+  color: maroon;
+  font-family:fantasy;
+  font-size: 20px
+}
+
+.mypara1{
+  color: brown;
+  font-family: cursive;
+  font-size: 16px
+}
+
+.mypara2{
+  color: brown;
+  font-family: cursive;
+  font-size: 16px
 }
