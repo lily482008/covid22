@@ -7,20 +7,33 @@
   </head>
   <body>
     <h1 class="myheading">Lily's homepage</h1>
-    <p class="mypara">This is my first webpage~</p>
+    <p class="mypara">This is my first webpage ~ </p>
     <p class="mypara2">My favorite sports.</p>
-    <img src="tennis.jpg" alt="tennis is fun" width="280px">
+    <img id="myimg" src="tennis.jpg" alt="tennis is fun" width="280px">
     <br>
     <a href="https://www.mayfairclubs.com/">tennis club</a>
     <ol class="mylist">
-      <li>Tennis</li>
+      <li>
+        <a href="#" onclick="setimg('tennis.jpg')">Tennis</a>
+      </li>
       <li>Chess</li>
-      <li>Snowboarding</li>
-      <li>Volleyball</li>
+      <li>
+        <a href="#" onclick="setimg('snow.jpg')">Snowboarding</a>
+      </li>
+      <li>
+        <a href="#" onclick="setimg('volleyball.png')">Volleyball</a>
+      </li>
       <li>Running</li>
       <li>Dance</li>
       <li>Swimming</li>
     </ol>
   </body>
+  <script type="text/javascript">
+    function setimg(imgname) {
+      document.getElementsById('myimg').src = imgname;
+    }
+  </script>
+
+
 </html>
 
