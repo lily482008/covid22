@@ -1,3 +1,7 @@
+body{
+  background:#ffccbc;
+}
+
 .nav-wrapper{
   background: #b71c1c;
 }
@@ -8,21 +12,33 @@
 .card-title{
   color: maroon;
   font-family:fantasy;
-  font-size: 20px
+  font-size: 22px
 }
 
 .mypara1{
   color: brown;
   font-family: cursive;
-  font-size: 16px
+  font-size: 18px
 }
 
 .mypara2{
   color: brown;
   font-family: cursive;
-  font-size: 16px
+  font-size: 18px
 }
 
-.card{
-  margin-top: 15px
+.mypara3{
+  color: brown;
+  font-family: cursive;
+  font-size: 16px
+  margin-left:50px
 }
+
+
+.card{
+  margin-top: 20px
+}
+
+
+
+#map {height: 360px; }
