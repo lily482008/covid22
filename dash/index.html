@@ -69,22 +69,48 @@
   pushdata();
   function pushdata(){
     myhtml = "<ul class='collection'>"; //building a string to push to p tag
-    for (i=0;i<5;i++) {
-      myhtml = myhtml + "<li class='collection-item'>" + coviddata.data[i].location + "<br>" + "  Death: " + coviddata.data[i].dead + "<br>" + "  Recovered: " + coviddata.data[i].recovered + "<br>" + "  Confirmed: " + coviddata.data[i].confirmed + "</li>";
+    for (i=0;i<14;i++) {
+      myending = coviddata.data[i].country_code.slice(0,1) + "/" + coviddata.data[i].country_code + ".gif";
+      myurl = "https://www.crwflags.com/fotw/images/" + myending;
+      myhtml = myhtml + "<li class='collection-item avatar'><img src='" + myurl + "' width='43px' class='circle'>" + coviddata.data[i].location + "<br>" + "  Death: " + coviddata.data[i].dead + "<br>" + "  Recovered: " + coviddata.data[i].recovered + "<br>" + "  Confirmed: " + coviddata.data[i].confirmed + "</li>";
     }
     myhtml = myhtml + "</ul>"
     document.getElementById('mydata').innerHTML = myhtml;
   }
 
   mapping();
-  function mapping() {
-    var map = L.map('map').setView([51.505, -0.09], 13); //51 north -0.09 west location of england
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-    var marker = L.marker([51.5, -0.09]).addTo(map);
-  }
+    function mapping() {
+      var map = L.map('map').setView([51,0], 1);  //51 north -0.09 west location of england
+      // toronto : [43.5, - 79], 3
+      // 3 is the zoom level & toronto is the center of the map
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap'
+      }).addTo(map);
+      // don't need the marker any more
+      //var marker = L.marker([51.5, -0.09]).addTo(map);
+      algo(map);
+    }
+
+    function algo(map) {
+      for (i=0;i<coviddata.data.length;i++) {
+        lat = coviddata.data[i].latitude;
+        lon = coviddata.data[i].longitude;
+        rad = coviddata.data[i].dead * 2;
+
+        pop = "<h5>Detail</h5>" + coviddata.data[i].location + "<br>" + coviddata.data[i].dead;
+
+        var circle = L.circle([lat, lon], {
+            color: '#dd2c00',
+            fillColor: '#ff8a65',
+            fillOpacity: 0.5,
+            radius: rad
+        }).bindPopup(pop).addTo(map);
+
+        circle.bindPopup("We are in this together " + coviddata.data[i].location + "!") // <br>.<img src='     ' width='200'>
+      }
+    }
+
 
   </script>
 
