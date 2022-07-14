@@ -18,7 +18,8 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <canvas id="pie-chart" width="800" height="450"></canvas>
   </head>
   <body>
     <nav>
@@ -45,8 +46,7 @@
          <div class="card">
            <div class="card-content">
              <span class="card-title">Card #2 : Graph</span>
-             <p class="mypara1">I am a very simple card. I am good at containing small bits of information.
-             I am convenient because I require little markup to use effectively.</p>
+             <canvas id="bar-chart" width="800" height="440"></canvas>
            </div>
          </div>
        </div>
@@ -61,8 +61,18 @@
            </div>
          </div>
        </div>
-     </div>
 
+       <div class="col s12 m6">
+         <div class="card">
+           <div class="card-content">
+             <span class="card-title">Card #4 : Graph</span>
+             <canvas id="pie-chart" width="800" height="420"></canvas>
+           </div>
+         </div>
+       </div>
+
+    </div>
+   </div>
   </body>
 
   <script type="text/javascript">
@@ -82,6 +92,8 @@
     function mapping() {
       var map = L.map('map').setView([51,0], 1);  //51 north -0.09 west location of england
       // toronto : [43.5, - 79], 3
+      // 51 the latitude
+      // 0 the longitude
       // 3 is the zoom level & toronto is the center of the map
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
@@ -94,21 +106,81 @@
 
     function algo(map) {
       for (i=0;i<coviddata.data.length;i++) {
+        //loop till the end of t he covid json data
         lat = coviddata.data[i].latitude;
         lon = coviddata.data[i].longitude;
         rad = coviddata.data[i].dead * 2;
+        // *2 bc some countries have low death and would not be able to see the circles
 
         pop = "<h5>Detail</h5>" + coviddata.data[i].location + "<br>" + coviddata.data[i].dead;
 
         var circle = L.circle([lat, lon], {
+          // L : leaflit
             color: '#dd2c00',
             fillColor: '#ff8a65',
             fillOpacity: 0.5,
             radius: rad
         }).bindPopup(pop).addTo(map);
 
-        circle.bindPopup("We are in this together " + coviddata.data[i].location + "!" + "<br>" + "  Death: " + coviddata.data[i].dead + "<br>" + "  Recovered: " + coviddata.data[i].recovered + "<br>" + "  Confirmed: " + coviddata.data[i].confirmed) 
+        circle.bindPopup("We are in this together " + coviddata.data[i].location + "!" + "<br>" + "  Death: " + coviddata.data[i].dead + "<br>" + "  Recovered: " + coviddata.data[i].recovered + "<br>" + "  Confirmed: " + coviddata.data[i].confirmed)
       }
+    }
+
+    bar();
+    function bar() {
+
+      objs = coviddata.data;
+      objs.sort((a,b) => b.dead - a.dead);
+      //console.log(objs);
+
+      mylabs = [];
+      mydata = [];
+      for (i=0;i<5;i++) {
+        mylabs.push(coviddata.data[i].location);
+        // mylabs = my labels
+        //push function in array adds data in the array
+        // labels , country names going to appear
+        mydata.push(coviddata.data[i].dead);
+      }
+
+      new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+          labels: mylabs,
+          datasets: [
+            {
+              label: "Covid Deaths",
+              backgroundColor: ["#0d47a1", "#1b5e20","#ffa000","#e53935","#1e88e5"],
+              data: mydata
+            }
+          ]
+        },
+        options: {
+          legend: { display: false},
+          title: {
+            display: true,
+            text: 'Covid Deaths 2021'
+          }
+        }
+      });
+
+      new Chart(document.getElementById("pie-chart"), {
+        type: 'pie',
+        data: {
+          labels: mylabs,
+          datasets: [{
+            label: "Covid Deaths",
+            backgroundColor: ["#0d47a1", "#1b5e20","#ffa000","#e53935","#1e88e5"],
+            data: mydata
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Covid Deaths 2021'
+          }
+        }
+      });
     }
 
 
